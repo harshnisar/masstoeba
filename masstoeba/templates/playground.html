@@ -1,0 +1,63 @@
+<html>
+<body>
+
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+    {% for message in messages %}
+        <li>{{ message }} </li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+
+{% block content %}
+<h1>PlayGround v1.00</h1>
+<form action="" method="POST" name="login" enctype='multipart/form-data'>
+    {{form.hidden_tag()}}
+    
+    <p>
+        Open Text <br>
+        {{form.text}}
+    </p>
+
+    <p>
+        {{form.min_thresh.label}} <br>
+        {{form.min_thresh}}
+    </p>
+
+    <p>
+         {{form.max_thresh.label}}<br>
+        {{form.max_thresh}}
+    </p>
+
+    <p>
+        {{form.uncommon_thresh.label}} <br>
+        {{form.uncommon_thresh}}
+    </p>
+
+    <p>
+        {{form.weight_len.label}} <br>
+        {{form.weight_len}}
+    </p>
+    <p>
+        {{form.weight_iwf.label}} <br>
+        {{form.weight_iwf}}
+    </p>
+    <p>
+        {{form.weight_common.label}} <br>
+        {{form.weight_common}}
+    </p>
+    <p>
+        {{form.weight_firstchar.label}} <br>
+        {{form.weight_firstchar}}
+    </p>
+
+    
+    <p><input type="submit" value="Submit Text"></p>
+</form>
+{% endblock %} 
+
+</body>
+</html>

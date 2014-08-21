@@ -1,0 +1,41 @@
+<html>
+<body>
+
+<table border = 1>
+<tr>
+<td> Sentence </td>
+<td> Total Score </td>
+<td> IWF</td> 
+<td> Weighted IWF</td> 
+<td> Common Word Score</td> 
+<td> Weighted CWS</td> 
+<td> First Char Upper</td> 
+<td> Wted. FCU</td> 
+<td> Length Score</td> 
+<td> Wted. LS</td> 
+</tr>
+
+
+
+{%for sent,result in results%}
+<tr>
+<td> {{result.text}} </td>
+<td> {{result.score}} </td>
+<td> {{result.score_iwf[0]}} </td>
+<td> {{result.score_iwf[1]}} </td>
+<td> {{result.score_common_words[0]}} </td>
+<td> {{result.score_common_words[1]}} </td>
+<td> {{result.score_firstchar_upper[0]}} </td>
+<td> {{result.score_firstchar_upper[1]}} </td>
+<td> {{result.score_length[0]}} </td>
+<td> {{result.score_length[1]}} </td>
+</tr>
+
+{%endfor%}
+
+
+<!-- Loop over the different sentences here -->
+
+</table>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<html>
+<body>
+
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+    {% for message in messages %}
+        <li>{{ message }} </li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+
+{% block content %}
+<h1>Sign In</h1>
+<form action="" method="post" name="login">
+    {{form.hidden_tag()}}
+    
+    <p>
+        Open Text <br>
+        {{form.text}}
+    </p>
+    
+    <p><input type="submit" value="Submit Text"></p>
+</form>
+{% endblock %} 
+
+</body>
+</html>
