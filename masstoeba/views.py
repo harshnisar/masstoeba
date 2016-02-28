@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from flask import render_template, flash, redirect, request, url_for
 from masstoeba import app, db
 from forms import TextSubmission, PlayGround
@@ -55,9 +57,9 @@ def testing():
     if request.method == 'GET':
         # sentences = models.eng_orphanage.query.get(-9222808175762007000)
         sentences = db.session.query(models.eng_orphanage).get(-587561644022235800)
-        if sentences in db.session
-        print sentences
-        return 'oh yeah2'
+        if sentences in db.session:
+        	print sentences
+        	return 'oh yeah2'
 
 
 
@@ -82,7 +84,7 @@ def playground():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             print filename
-            text = file.read().decode('utf-8')
+            text = file.read().decode('ISO-8859-1')
         print type(text)
         max_thresh = form.max_thresh.data
         min_thresh = form.min_thresh.data
