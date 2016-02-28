@@ -11,7 +11,7 @@ import re, os
 
 
 
-#The sentence splitter, will split the given text, in sentences using Punkt Tokenizer. 
+#The sentence splitter, will split the given text, in sentences using Punkt Tokenizer.
 
 Lang  = namedtuple('Lang',['codename','language', 'need_punkt','stopchar'])
 
@@ -23,7 +23,10 @@ def get_lang_info(lang):
     '''
     langinfolist = []
     filepath = 'langinfo.csv'
-    newfilepath = os.path.join('masstoeba/scripts/', filepath)
+    my_dir = os.path.dirname(__file__)
+    print my_dir
+    newfilepath = os.path.join(my_dir, filepath)
+    print newfilepath
     with open(newfilepath,'rb') as f:
         c = csv.reader(f,delimiter = '\t')
         for row in c:
@@ -33,24 +36,24 @@ def get_lang_info(lang):
                 break
 
 
-    return     Lang(lang, langinfolist[1].decode('utf-8'), langinfolist[2]=='True', langinfolist[3].decode('utf-8').split(u','))        
+    return     Lang(lang, langinfolist[1].decode('utf-8'), langinfolist[2]=='True', langinfolist[3].decode('utf-8').split(u','))
 
 def splitter(text,lang):
     '''Tokenizes the text(unicode) in any specified language and returns as a list of unicode sentences
 
     Checks whether a language requires the usage of Punkt Tokenizer from hardcoded data about languages. If not, simply splits and returns.
     '''
-    
+
     thislang = get_lang_info(lang)
-    
+
     if thislang.need_punkt:
         sent_detector = nltk.data.load('tokenizers/punkt/%s.pickle'%(thislang.language))
-        sentences = (sent_detector.tokenize(text.strip()))        
+        sentences = (sent_detector.tokenize(text.strip()))
         return sentences
     else:
         sentEnd = re.compile('[%s!?]'%thislang.stopchar[0])
         sentList = sentEnd.split(text.strip())
-        # return text.strip().split(thislang.stopchar[0])    
+        # return text.strip().split(thislang.stopchar[0])
         return sentList[:-1]
 
 # print get_lang_info('eng')

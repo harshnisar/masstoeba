@@ -2,7 +2,7 @@ import nltk
 import corpusreader
 import wordtokenizer
 import pickle
-
+import os
 
 
 def less_stopwords(wordlist, stopwordset):
@@ -14,7 +14,7 @@ def less_stopwords(wordlist, stopwordset):
     if stopwordset:
         return list(set(wordlist) - stopwordset)
     else:
-        return wordlist    
+        return wordlist
 
 def file_generator(filename):
     with open(filename, 'rb') as fil:
@@ -46,7 +46,7 @@ def fdist_gen(lang, corpusfile, stopwordfile=False):
     if stopwordfile:
         stopwordset = load_set_stopwords(stopwordfile)
     else:
-        stopwordset = False    
+        stopwordset = False
     for sentence in sentences:
         words = wordtokenizer.wordtokenizer('hin', sentence)
         # print len(words)
@@ -55,7 +55,7 @@ def fdist_gen(lang, corpusfile, stopwordfile=False):
         # print '\n'
         # print words
         for word in words:
-            
+
             fdist.inc(word.lower())
 
     # for key in fdist.keys()[:50]:
@@ -73,17 +73,21 @@ def fdist_gen(lang, corpusfile, stopwordfile=False):
 def fdist_loader(lang):
     ''' Loads a pre-made pkl file which contains the frequency distribution in
     a particular language. Returns -1 if the pickle doesnt exist
-    '''  
+    '''
     try:
-        with open('fdists/fdist_%s.pkl'%(lang)) as f:
+        curr = os.path.dirname(__file__)
+        pkl_path = os.path.join(curr,'..','..', 'fdists','fdist_%s.pkl'%(lang))
+        print 'pkl_path, ',pkl_path
+        with open(pkl_path) as f:
             fdist = pickle.load(f)
             print 'loading pickle file'
+            print 'value of fdist ', fdist
             return fdist
     except:
         return -1
 
 # stopwordfile = 'stopword/stop-words_english_1_en.txt'
-#1 stopwordset = load_set_stopwords(stopwordfile)   
+#1 stopwordset = load_set_stopwords(stopwordfile)
 # fdist = fdist_gen('eng', 'sentences.csv', 'stopword/stop-words_english_1_en.txt')
 # fdist = fdist_gen('eng', 'sentences.csv')
 # fdist = fdist_gen('hin', 'sentences.csv', 'stopword/stop-words_hindi_1_hi.txt')
@@ -91,9 +95,9 @@ def fdist_loader(lang):
 
 def iwf(word, fdist):
     '''Takes word and fdist, and returns the word frequency. Return 0 if none'''
-    
+
     return fdist[word]
-    
+
 
 
 # while True:
